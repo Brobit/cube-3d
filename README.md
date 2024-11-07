@@ -2,7 +2,7 @@
 
 ## Mandatory part
 
-- program name : cub3d
+- program name : cub3D
 - turn in files : all your files
 - makefile : all, clean, fclean, re, bonus
 - argument : a map in format *.cub

@@ -1,0 +1,5 @@
+# ignore minilibx
+minilibx-linux/
+
+# ignore object
+*.o
