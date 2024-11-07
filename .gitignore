@@ -3,6 +3,7 @@ minilibx-linux/
 
 # ignore object
 *.o
+*.a
 
 # ignore executable
 cub3D
