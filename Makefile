@@ -15,10 +15,18 @@ LIBFT_FLAG = -lft_complete
 INCLUDES = -I ./Includes/
 
 PARSING_SOURCES = ./Parsing/main.c
-RAYCASTING_SOURCES = ./Raycasting/raycasting_entry.c
+RAYCASTING_SOURCES = ./Raycasting/raycasting_entry.c\
+					 ./Raycasting/utils.c\
+					 ./Raycasting/mlx_handler/init_mlx.c\
+					 ./Raycasting/mlx_handler/event_handler.c\
+					 ./Raycasting/mlx_handler/image_handler.c\
+					 ./Raycasting/drawing/fill_image.c\
+					 ./Raycasting/drawing/color_writing.c
 
 PARSING_OBJ_PATH = obj/Parsing/
-RAYCASTING_OBJ_PATH = obj/Raycasting/
+RAYCASTING_OBJ_PATH = obj/Raycasting/\
+					  obj/Raycasting/drawing\
+					  obj/Raycasting/mlx_handler\
 
 PARSING_OBJS = ${PARSING_SOURCES:.c=.o}
 PARSING_OBJS := $(addprefix ${PARSING_OBJ_PATH}, $(notdir ${PARSING_OBJS}))

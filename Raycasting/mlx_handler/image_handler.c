@@ -1,0 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   image_handler.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: almarico <almarico@student.42lehavre.fr>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/15 12:30:17 by almarico          #+#    #+#             */
+/*   Updated: 2024/11/15 16:56:49 by almarico         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../Includes/cub3d.h"
+
+void	image_handler(t_window *mlx)
+{
+	mlx->img.img_ptr = mlx_new_image(mlx->init_ptr, mlx->width, mlx->height);
+	mlx->img.img_data_address = mlx_get_data_addr(mlx->img.img_ptr,
+			&mlx->img.bits_per_pixel, &mlx->img.size_line, &mlx->img.endian);
+}
