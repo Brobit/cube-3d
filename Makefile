@@ -16,25 +16,21 @@ INCLUDES = -I ./Includes/
 
 PARSING_SOURCES = ./Parsing/main.c
 RAYCASTING_SOURCES = ./Raycasting/raycasting_entry.c\
-					 ./Raycasting/utils.c\
-					 ./Raycasting/mlx_handler/init_mlx.c\
-					 ./Raycasting/mlx_handler/event_handler.c\
-					 ./Raycasting/mlx_handler/image_handler.c\
-					 ./Raycasting/drawing/fill_image.c\
-					 ./Raycasting/drawing/color_writing.c
+                     ./Raycasting/utils.c\
+                     ./Raycasting/mlx_handler/init_mlx.c\
+                     ./Raycasting/mlx_handler/event_handler.c\
+                     ./Raycasting/mlx_handler/image_handler.c\
+                     ./Raycasting/drawing/fill_image.c\
+                     ./Raycasting/drawing/color_writing.c
 
 PARSING_OBJ_PATH = obj/Parsing/
-RAYCASTING_OBJ_PATH = obj/Raycasting/\
-					  obj/Raycasting/drawing\
-					  obj/Raycasting/mlx_handler\
+RAYCASTING_OBJ_PATH = obj/Raycasting/
+SUBDIRS = mlx_handler drawing
 
-PARSING_OBJS = ${PARSING_SOURCES:.c=.o}
-PARSING_OBJS := $(addprefix ${PARSING_OBJ_PATH}, $(notdir ${PARSING_OBJS}))
+PARSING_OBJS = ${PARSING_SOURCES:./Parsing/%.c=${PARSING_OBJ_PATH}%.o}
+RAYCASTING_OBJS = ${RAYCASTING_SOURCES:./Raycasting/%.c=${RAYCASTING_OBJ_PATH}%.o}
 
-RAYCASTING_OBJS = ${RAYCASTING_SOURCES:.c=.o}
-RAYCASTING_OBJS := $(addprefix ${RAYCASTING_OBJ_PATH}, $(notdir ${RAYCASTING_OBJS}))
-
-all : ${PARSING_OBJ_PATH} ${RAYCASTING_OBJ_PATH} ${NAME}
+all: ${PARSING_OBJ_PATH} ${RAYCASTING_OBJ_PATH} ${SUBDIRS:%=${RAYCASTING_OBJ_PATH}%/} ${NAME}
 
 ${PARSING_OBJ_PATH}:
 	mkdir -p ${PARSING_OBJ_PATH}
@@ -42,32 +38,35 @@ ${PARSING_OBJ_PATH}:
 ${RAYCASTING_OBJ_PATH}:
 	mkdir -p ${RAYCASTING_OBJ_PATH}
 
-${NAME} : ${PARSING_OBJS} ${RAYCASTING_OBJS} ${MLX_LIB} ${LIBFT_LIB}
+${RAYCASTING_OBJ_PATH}%/:
+	mkdir -p $@
+
+${NAME}: ${PARSING_OBJS} ${RAYCASTING_OBJS} ${MLX_LIB} ${LIBFT_LIB}
 	${CC} ${FLAGS} ${PARSING_OBJS} ${RAYCASTING_OBJS} \
 	-L${MLX_DIR} -L${LIBFT_DIR} -o $@ ${MLX_FLAG} ${LIBFT_FLAG}
 
-${MLX_LIB} :
+${MLX_LIB}:
 	${MAKE} -C ${MLX_DIR}
 
-${LIBFT_LIB} :
+${LIBFT_LIB}:
 	${MAKE} -C ${LIBFT_DIR}
 
-${PARSING_OBJ_PATH}%.o : ./Parsing/%.c
+${PARSING_OBJ_PATH}%.o: ./Parsing/%.c
 	${CC} ${FLAGS} ${INCLUDES} -c $< -o $@
 
-${RAYCASTING_OBJ_PATH}%.o : ./Raycasting/%.c
+${RAYCASTING_OBJ_PATH}%.o: ./Raycasting/%.c
 	${CC} ${FLAGS} ${INCLUDES} -c $< -o $@
 
-clean : 
+clean:
 	${MAKE} clean -C ${MLX_DIR}
 	${MAKE} clean -C ${LIBFT_DIR}
 	${RM} ${PARSING_OBJS} ${RAYCASTING_OBJS}
 	${RM} -r obj/
 
-fclean : clean
+fclean: clean
 	${MAKE} fclean -C ${LIBFT_DIR}
 	${RM} ${NAME}
 
-re : fclean all
+re: fclean all
 
-.PHONY : all clean fclean re
+.PHONY: all clean fclean re
