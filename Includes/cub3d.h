@@ -6,7 +6,7 @@
 /*   By: almarico <almarico@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:52:49 by almarico          #+#    #+#             */
-/*   Updated: 2024/11/15 15:10:21 by almarico         ###   ########.fr       */
+/*   Updated: 2024/11/16 12:05:32 by almarico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define COLOR_BLUE					0x0000FF
 # define COLOR_GREY					0x999999
 # define DEFAULT_COLOR_VALUE		0xF000FF
+# define COLOR_LIGHT_BLUE			0x6BA6B5
 
 /* error define */
 # define ERR_MALLOC					"An error occured during the malloc\n"

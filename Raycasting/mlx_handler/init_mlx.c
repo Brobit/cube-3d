@@ -6,11 +6,11 @@
 /*   By: almarico <almarico@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 12:28:28 by almarico          #+#    #+#             */
-/*   Updated: 2024/11/15 17:05:33 by almarico         ###   ########.fr       */
+/*   Updated: 2024/11/16 12:00:31 by almarico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/cub3d.h"
+#include "../../Includes/cub3d.h"
 
 int	init_display(t_window *mlx)
 {
