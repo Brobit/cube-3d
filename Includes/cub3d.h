@@ -6,7 +6,7 @@
 /*   By: almarico <almarico@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:52:49 by almarico          #+#    #+#             */
-/*   Updated: 2024/11/16 12:05:32 by almarico         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:40:56 by almarico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ typedef enum e_facing
 
 typedef struct s_player
 {
-	int			pos_x;
-	int			pos_y;
-	t_facing	direction;
+	double			pos_x;
+	double			pos_y;
+	t_facing		direction;
 }				t_player;
 
 typedef struct s_map_param
@@ -108,6 +108,21 @@ typedef struct s_info
 	t_window			*mlx;
 	t_map_param			*map;
 }				t_info;
+
+/* raycasting_structure */
+
+typedef struct s_coordonate
+{
+	double				pos_x;
+	double				pos_y;
+}				t_coordonate;
+
+typedef struct s_raycasting
+{
+	t_player			*p;
+	t_coordonate		*a;
+	t_coordonate		*b;
+}				t_raycasting;
 
 /* raycasting_entry.c */
 int							raycasting_entry(t_map_param *info);

@@ -6,7 +6,7 @@
 /*   By: almarico <almarico@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 14:46:36 by almarico          #+#    #+#             */
-/*   Updated: 2024/11/15 17:04:15 by almarico         ###   ########.fr       */
+/*   Updated: 2024/11/16 14:54:33 by almarico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	free_map(t_map_param *map)
 			free(map->map[i++]);
 		free(map->map);
 		free(map->player);
+		free(map);
 	}
 }
 

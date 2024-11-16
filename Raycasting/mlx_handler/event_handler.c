@@ -6,7 +6,7 @@
 /*   By: almarico <almarico@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 13:38:52 by almarico          #+#    #+#             */
-/*   Updated: 2024/11/16 12:00:34 by almarico         ###   ########.fr       */
+/*   Updated: 2024/11/16 14:59:08 by almarico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	closes(t_info *info)
 	mlx_destroy_display(info->mlx->init_ptr);
 	free(info->mlx->init_ptr);
 	free_map(info->map);
+	free(info->mlx);
 	free(info);
 	exit(0);
 	return (0);
@@ -49,6 +50,7 @@ int	key_handler(int keycode, t_info *info)
 		mlx_destroy_display(info->mlx->init_ptr);
 		free(info->mlx->init_ptr);
 		free_map(info->map);
+		free(info->mlx);
 		free(info);
 		exit(0);
 	}
