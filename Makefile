@@ -21,7 +21,9 @@ RAYCASTING_SOURCES = ./Raycasting/raycasting_entry.c\
                      ./Raycasting/mlx_handler/event_handler.c\
                      ./Raycasting/mlx_handler/image_handler.c\
                      ./Raycasting/drawing/fill_image.c\
-                     ./Raycasting/drawing/color_writing.c
+                     ./Raycasting/drawing/color_writing.c\
+					 ./Raycasting/raycasting_utils/init_raycasting.c\
+					 ./Raycasting/raycasting_utils/free_raycasting.c
 
 PARSING_OBJ_PATH = obj/Parsing/
 RAYCASTING_OBJ_PATH = obj/Raycasting/

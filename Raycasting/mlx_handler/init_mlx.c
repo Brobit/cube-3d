@@ -6,7 +6,7 @@
 /*   By: almarico <almarico@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 12:28:28 by almarico          #+#    #+#             */
-/*   Updated: 2024/11/16 12:00:31 by almarico         ###   ########.fr       */
+/*   Updated: 2024/11/16 17:55:44 by almarico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,18 @@ int	init_display(t_window *mlx)
 
 int	display(t_window *mlx, t_map_param *map)
 {
-	image_handler(mlx);
-	fill_image(mlx, map);
+	t_info	*info;
+
+	info = malloc(sizeof(t_info));
+	if (!info)
+		return (write_message(ERR_MALLOC), FAIL);
+	info->mlx = mlx;
+	info->map = map;
+	image_handler(info->mlx);
+	if (fill_image(info) == FAIL)
+		return (FAIL);
 	mlx_put_image_to_window(mlx->init_ptr, mlx->window, mlx->img.img_ptr, 0, 0);
-	event_handler(mlx, map);
+	event_handler(info);
 	mlx_loop(mlx->init_ptr);
 	return (SUCCESS);
 }

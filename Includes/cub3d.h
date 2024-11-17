@@ -6,7 +6,7 @@
 /*   By: almarico <almarico@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:52:49 by almarico          #+#    #+#             */
-/*   Updated: 2024/11/16 15:40:56 by almarico         ###   ########.fr       */
+/*   Updated: 2024/11/17 19:23:21 by almarico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@
 /* error define */
 # define ERR_MALLOC					"An error occured during the malloc\n"
 
+/* raycasting define */
+# define NUMBER_OF_RAY				10
+
 /* map & player structure */
 typedef enum e_facing
 {
@@ -66,6 +69,8 @@ typedef struct s_player
 {
 	double			pos_x;
 	double			pos_y;
+	double			angle;
+	double			fov_width;
 	t_facing		direction;
 }				t_player;
 
@@ -102,13 +107,6 @@ typedef struct s_window
 	t_img_info		img;
 }				t_window;
 
-/* general structure */
-typedef struct s_info
-{
-	t_window			*mlx;
-	t_map_param			*map;
-}				t_info;
-
 /* raycasting_structure */
 
 typedef struct s_coordonate
@@ -117,12 +115,41 @@ typedef struct s_coordonate
 	double				pos_y;
 }				t_coordonate;
 
+typedef struct s_angle
+{
+	double				min;
+	double				max;
+	double				value_of_ray;
+}				t_angle;
+
+typedef struct s_ray
+{
+	t_angle				angle_of_ray;
+	double				theta;
+	t_coordonate		collision_point;
+	t_coordonate		right_angle;
+	double				length_horizontal_collision;
+	double				length_vertical_collision;
+	double				shortest_lenght;
+	double				box_size;
+}				t_ray;
+
+// player copy he player in the global struct and **ray 
+// contain at each index the t_ray structure, like that
+// i can set the number of ray easily an navigate easily
 typedef struct s_raycasting
 {
-	t_player			*p;
-	t_coordonate		*a;
-	t_coordonate		*b;
+	t_player			*player;
+	t_ray				**ray;
 }				t_raycasting;
+
+/* general structure */
+typedef struct s_info
+{
+	t_window			*mlx;
+	t_map_param			*map;
+	t_raycasting		*raycasting;
+}				t_info;
 
 /* raycasting_entry.c */
 int							raycasting_entry(t_map_param *info);
@@ -139,18 +166,24 @@ int							closes(t_info *info);
 int							key_handler(int keycode, t_info *info);
 void						destroy_image(t_window *mlx);
 void						redraw_window(t_window *mlx);
-void						event_handler(t_window *mlx, t_map_param *map);
+void						event_handler(t_info *info);
 
 /* fill_image.c */
-void						fill_image(t_window *mlx, t_map_param *map);
+int							fill_image(t_info *info);
 
 /* color_writing.c */
 void						set_pixel_color(t_img_info img, int pos_x, int pos_y, int color);
 void						fill_background(t_window *mlx);
-void						draw_wall(t_window *mlx, t_map_param *map);
+int							draw_wall(t_info *info);
 
 /* utils.c */
 void						free_map(t_map_param *map);
 void						write_message(const char *msg);
+
+/* init_raycasting.c */
+int							init_raycasting(t_info *info);
+
+/* free_raycasting.c */
+void						free_raycasting(t_raycasting *raycasting);
 
 #endif // !CUB3D_H

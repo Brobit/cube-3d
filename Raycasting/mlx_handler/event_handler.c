@@ -6,7 +6,7 @@
 /*   By: almarico <almarico@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 13:38:52 by almarico          #+#    #+#             */
-/*   Updated: 2024/11/16 14:59:08 by almarico         ###   ########.fr       */
+/*   Updated: 2024/11/16 21:37:09 by almarico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	closes(t_info *info)
 	free(info->mlx->init_ptr);
 	free_map(info->map);
 	free(info->mlx);
+	free_raycasting(info->raycasting);
 	free(info);
 	exit(0);
 	return (0);
@@ -51,21 +52,15 @@ int	key_handler(int keycode, t_info *info)
 		free(info->mlx->init_ptr);
 		free_map(info->map);
 		free(info->mlx);
+		free_raycasting(info->raycasting);
 		free(info);
 		exit(0);
 	}
 	return (0);
 }
 
-void	event_handler(t_window *mlx, t_map_param *map)
+void	event_handler(t_info *info)
 {
-	t_info	*info;
-
-	info = malloc(sizeof(t_info));
-	if (!info)
-		return (write_message(ERR_MALLOC));
-	info->mlx = mlx;
-	info->map = map;
-	mlx_hook(mlx->window, ON_KEYDOWN, 1L << 0, key_handler, info);
-	mlx_hook(mlx->window, ON_DESTROY, 1L << 17, closes, info);
+	mlx_hook(info->mlx->window, ON_KEYDOWN, 1L << 0, key_handler, info);
+	mlx_hook(info->mlx->window, ON_DESTROY, 1L << 17, closes, info);
 }

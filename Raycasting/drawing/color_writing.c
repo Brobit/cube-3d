@@ -6,7 +6,7 @@
 /*   By: almarico <almarico@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 13:37:14 by almarico          #+#    #+#             */
-/*   Updated: 2024/11/16 12:06:06 by almarico         ###   ########.fr       */
+/*   Updated: 2024/11/16 21:37:15 by almarico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,15 @@ void	fill_background(t_window *mlx)
 	}
 }
 
-void	draw_wall(t_window *mlx, t_map_param *map)
+int	draw_wall(t_info *info)
 {
-	(void)mlx;
-	(void)map;
+	t_raycasting	*raycasting;
+
+	raycasting = malloc(sizeof(t_raycasting));
+	if (!raycasting)
+		return (write_message(ERR_MALLOC), FAIL);
+	info->raycasting = raycasting;
+	if (init_raycasting(info) == FAIL)
+		return (FAIL);
+	return (SUCCESS);
 }
