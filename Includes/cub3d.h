@@ -6,7 +6,7 @@
 /*   By: almarico <almarico@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:52:49 by almarico          #+#    #+#             */
-/*   Updated: 2024/11/17 19:23:21 by almarico         ###   ########.fr       */
+/*   Updated: 2024/11/19 14:56:55 by almarico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 /* general & error defines */
 # define SUCCESS					0
 # define FAIL						1
+# define CONTINUE					0
+# define STOP						1
 # define STDIN						0
 # define STDOUT						1
 # define STDERR						2
@@ -132,6 +134,7 @@ typedef struct s_ray
 	double				length_vertical_collision;
 	double				shortest_lenght;
 	double				box_size;
+	double				height_to_display;
 }				t_ray;
 
 // player copy he player in the global struct and **ray 
@@ -185,5 +188,24 @@ int							init_raycasting(t_info *info);
 
 /* free_raycasting.c */
 void						free_raycasting(t_raycasting *raycasting);
+
+/* raycasting_calculation.c */
+void						raycasting_calculation(t_info *info);
+
+/* calculate_horizontale_collision.c */
+void						calculate_horizontale_collision(t_ray *ray, t_player *player, t_info *info);
+
+/* calculate_verticale_collision.c */
+void						calculate_verticale_collision(t_ray *ray, t_player *player, t_info *info);
+
+/* set_shortest_length_to_display.c */
+void						set_shortest_length_of_ray(t_ray *ray);
+
+/* calculate_height_to_display.c */
+void						calculate_height_to_display(t_ray *ray, t_info *info);
+
+/* display_raycasting_result.c */
+
+void						display_raycasting_result(t_info *info);
 
 #endif // !CUB3D_H
