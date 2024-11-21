@@ -6,7 +6,7 @@
 /*   By: almarico <almarico@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 19:47:07 by almarico          #+#    #+#             */
-/*   Updated: 2024/11/19 11:18:31 by almarico         ###   ########.fr       */
+/*   Updated: 2024/11/19 18:00:19 by almarico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ static void	distance_calculation(t_ray *ray, t_player *player)
 
 static int	check_box(t_ray *ray, t_info *info)
 {
-	double	box_index;
+	double	x;
+	double	y;
 
-	box_index = ceil(ray->collision_point.pos_x / ray->box_size);
-	if (info->map->map[(int)box_index][(int)ray->collision_point.pos_y] == '1')
+	x = ceil(ray->collision_point.pos_x / ray->box_size);
+	y = ceil(ray->collision_point.pos_y / ray->box_size);
+	if (info->map->map[(int)x][(int)y] == '1')
 		return (STOP);
 	return (CONTINUE);
 }
@@ -42,7 +44,10 @@ void	calculate_verticale_collision(t_ray *ray, t_player *player, t_info *info)
 		ray->collision_point.pos_x += ray->box_size / (cos(ray->theta));
 		ray->right_angle.pos_x = ray->collision_point.pos_x;
 		ray->right_angle.pos_y = player->pos_y;
-		ray->collision_point.pos_y = player->pos_y + fabs(ray->collision_point.pos_x - player->pos_x) * tan(ray->theta);
+		if (ray->angle_of_ray.value_of_ray > 0 && ray->angle_of_ray.value_of_ray <= M_PI)
+			ray->collision_point.pos_y = player->pos_y + fabs(ray->collision_point.pos_x - player->pos_x) * tan(ray->theta);
+		else
+			ray->collision_point.pos_y = player->pos_y - fabs(ray->collision_point.pos_x - player->pos_x) * tan(ray->theta);
 		distance_calculation(ray, player);
 	}
 }

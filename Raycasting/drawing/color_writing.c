@@ -6,7 +6,7 @@
 /*   By: almarico <almarico@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 13:37:14 by almarico          #+#    #+#             */
-/*   Updated: 2024/11/18 11:45:35 by almarico         ###   ########.fr       */
+/*   Updated: 2024/11/21 09:08:01 by almarico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,5 @@ int	draw_wall(t_info *info)
 	if (init_raycasting(info) == FAIL)
 		return (FAIL);
 	raycasting_calculation(info);
-	display_raycasting_result(info);
 	return (SUCCESS);
 }

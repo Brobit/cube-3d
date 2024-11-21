@@ -6,7 +6,7 @@
 /*   By: almarico <almarico@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:52:49 by almarico          #+#    #+#             */
-/*   Updated: 2024/11/19 14:56:55 by almarico         ###   ########.fr       */
+/*   Updated: 2024/11/21 13:28:34 by almarico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@
 # define ERR_MALLOC					"An error occured during the malloc\n"
 
 /* raycasting define */
-# define NUMBER_OF_RAY				10
+# define ANGLE_FOV					1.047197551
 
 /* map & player structure */
 typedef enum e_facing
@@ -143,7 +143,7 @@ typedef struct s_ray
 typedef struct s_raycasting
 {
 	t_player			*player;
-	t_ray				**ray;
+	t_ray				ray;
 }				t_raycasting;
 
 /* general structure */
@@ -151,7 +151,8 @@ typedef struct s_info
 {
 	t_window			*mlx;
 	t_map_param			*map;
-	t_raycasting		*raycasting;
+	// t_raycasting		*raycasting;
+	t_ray				ray;
 }				t_info;
 
 /* raycasting_entry.c */
@@ -193,16 +194,16 @@ void						free_raycasting(t_raycasting *raycasting);
 void						raycasting_calculation(t_info *info);
 
 /* calculate_horizontale_collision.c */
-void						calculate_horizontale_collision(t_ray *ray, t_player *player, t_info *info);
+void						calculate_horizontale_collision(t_info *info);
 
 /* calculate_verticale_collision.c */
-void						calculate_verticale_collision(t_ray *ray, t_player *player, t_info *info);
+void						calculate_verticale_collision(t_info *info);
 
 /* set_shortest_length_to_display.c */
 void						set_shortest_length_of_ray(t_ray *ray);
 
 /* calculate_height_to_display.c */
-void						calculate_height_to_display(t_ray *ray, t_info *info);
+void						calculate_height_to_display(t_info *info);
 
 /* display_raycasting_result.c */
 

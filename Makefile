@@ -22,17 +22,24 @@ RAYCASTING_SOURCES = ./Raycasting/raycasting_entry.c\
                      ./Raycasting/mlx_handler/image_handler.c\
                      ./Raycasting/drawing/fill_image.c\
                      ./Raycasting/drawing/color_writing.c\
+					 ./Raycasting/drawing/display_raycasting_result.c\
 					 ./Raycasting/raycasting_utils/init_raycasting.c\
-					 ./Raycasting/raycasting_utils/free_raycasting.c
+					 ./Raycasting/raycasting_utils/free_raycasting.c\
+					 ./Raycasting/raycasting_utils/raycasting_calculation.c\
+					 ./Raycasting/raycasting_utils/set_shortest_length_of_ray.c\
+					 ./Raycasting/raycasting_utils/calculate_height_to_display.c\
+					 ./Raycasting/raycasting_utils/calculate_verticale_collision.c\
+					 ./Raycasting/raycasting_utils/calculate_horizontale_collision.c
 
 PARSING_OBJ_PATH = obj/Parsing/
+PARSING_SUBDIRS = 
 RAYCASTING_OBJ_PATH = obj/Raycasting/
-SUBDIRS = mlx_handler drawing
+RAYCASTING_SUBDIRS = mlx_handler drawing raycasting_utils
 
 PARSING_OBJS = ${PARSING_SOURCES:./Parsing/%.c=${PARSING_OBJ_PATH}%.o}
 RAYCASTING_OBJS = ${RAYCASTING_SOURCES:./Raycasting/%.c=${RAYCASTING_OBJ_PATH}%.o}
 
-all: ${PARSING_OBJ_PATH} ${RAYCASTING_OBJ_PATH} ${SUBDIRS:%=${RAYCASTING_OBJ_PATH}%/} ${NAME}
+all: ${PARSING_OBJ_PATH} ${PARSING_SUBDIRS:%=${PARSING_OBJ_PATH}%/} ${RAYCASTING_OBJ_PATH} ${RAYCASTING_SUBDIRS:%=${RAYCASTING_OBJ_PATH}%/} ${NAME}
 
 ${PARSING_OBJ_PATH}:
 	mkdir -p ${PARSING_OBJ_PATH}

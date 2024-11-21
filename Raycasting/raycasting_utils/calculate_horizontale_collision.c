@@ -6,7 +6,7 @@
 /*   By: almarico <almarico@student.42lehavre.fr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 19:46:58 by almarico          #+#    #+#             */
-/*   Updated: 2024/11/19 11:14:58 by almarico         ###   ########.fr       */
+/*   Updated: 2024/11/21 14:27:20 by almarico         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,30 +20,35 @@ static void	distance_calculation(t_ray *ray, t_player *player)
 
 static int	check_box(t_ray *ray, t_info *info)
 {
-	double	box_index;
+	double	x;
+	double	y;
 
-	box_index = floor(ray->collision_point.pos_x / ray->box_size);
-	if (info->map->map[(int)box_index][(int)ray->collision_point.pos_y] == '1')
+	x = floor(ray->collision_point.pos_x / ray->box_size);
+	y = floor(ray->collision_point.pos_y / ray->box_size);
+	if (info->map->map[(int)fabs(x)][(int)fabs(y)] == '1')
 		return (STOP);
 	return (CONTINUE);
 }
 
-void	calculate_horizontale_collision(t_ray *ray, t_player *player, t_info *info)
+void	calculate_horizontale_collision(t_info *info)
 {
-	ray->collision_point.pos_y = floor(player->pos_y / ray->box_size) * ray->box_size;
-	ray->right_angle.pos_y = player->pos_y;
-	if (ray->angle_of_ray.value_of_ray >= M_PI_2 && ray->angle_of_ray.value_of_ray < (3 * M_PI_2))
-		ray->collision_point.pos_x = - (fabs(player->pos_y - ray->collision_point.pos_y) / tan(ray->theta)) + player->pos_x;
+	info->ray.collision_point.pos_y = floor(info->map->player->pos_y / info->ray.box_size) * info->ray.box_size;
+	info->ray.right_angle.pos_y = info->map->player->pos_y;
+	if (info->ray.angle_of_ray.value_of_ray >= M_PI_2 && info->ray.angle_of_ray.value_of_ray < (3 * M_PI_2))
+		info->ray.collision_point.pos_x = - (fabs(info->map->player->pos_y - info->ray.collision_point.pos_y) / tan(info->ray.theta)) + info->map->player->pos_x;
 	else
-		ray->collision_point.pos_x = (fabs(player->pos_y - ray->collision_point.pos_y) / tan(ray->theta)) + player->pos_x;
-	ray->right_angle.pos_x = ray->collision_point.pos_x;
-	distance_calculation(ray, player);
-	while (check_box(ray, info) == CONTINUE)
+		info->ray.collision_point.pos_x = (fabs(info->map->player->pos_y - info->ray.collision_point.pos_y) / tan(info->ray.theta)) + info->map->player->pos_x;
+	info->ray.right_angle.pos_x = info->ray.collision_point.pos_x;
+	distance_calculation(&info->ray, info->map->player);
+	while (check_box(&info->ray, info) == CONTINUE)
 	{
-		ray->collision_point.pos_y += ray->box_size / (sin(ray->theta));
-		ray->right_angle.pos_y = player->pos_y;
-		ray->collision_point.pos_x = - (fabs(player->pos_y - ray->collision_point.pos_y) / tan(ray->theta)) + player->pos_x;
-		ray->right_angle.pos_x = ray->collision_point.pos_x;
-		distance_calculation(ray, player);
+		info->ray.collision_point.pos_y += info->ray.box_size / (sin(info->ray.theta));
+		info->ray.right_angle.pos_y = info->map->player->pos_y;
+		if (info->ray.angle_of_ray.value_of_ray >= M_PI_2 && info->ray.angle_of_ray.value_of_ray < (3 * M_PI_2))
+			info->ray.collision_point.pos_x = - (fabs(info->map->player->pos_y - info->ray.collision_point.pos_y) / tan(info->ray.theta)) + info->map->player->pos_x;
+		else
+			info->ray.collision_point.pos_x = (fabs(info->map->player->pos_y - info->ray.collision_point.pos_y) / tan(info->ray.theta)) + info->map->player->pos_x;
+		info->ray.right_angle.pos_x = info->ray.collision_point.pos_x;
+		distance_calculation(&info->ray, info->map->player);
 	}
 }
